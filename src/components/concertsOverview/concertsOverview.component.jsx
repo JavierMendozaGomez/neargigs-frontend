@@ -3,12 +3,12 @@ import {createStructuredSelector} from 'reselect';
 import {selectCollection} from '../../redux/concertsOverview/concertsOverview.selectors';
 import {connect} from 'react-redux';
 
-const Collection = ({collections}) => (
+const ConcertsOverview = ({collections}) => (
     <div>
         Collection of concerts
         {
-            collections.map( collection => (
-                <p>{collection.title}</p>
+            collections.map( concert => (
+                <p key={concert.id}>{concert.title}</p>
             ))
         }
     </div>
@@ -18,5 +18,5 @@ const mapStateToProps = createStructuredSelector({
     collections: selectCollection,
 })
 
-export default connect(mapStateToProps)(Collection);
+export default connect(mapStateToProps)(ConcertsOverview);
 

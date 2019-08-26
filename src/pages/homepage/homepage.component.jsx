@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../../components/header/header.component';
-
+import ConcertsOverview from '../../components/concertsOverview/concertsOverview.component';
 
 const HomePage = () => (
     <div>
-        <h2>Homepage</h2>
+        <h2>Home page</h2>
+        < ConcertsOverview />
     </div>
 );
 

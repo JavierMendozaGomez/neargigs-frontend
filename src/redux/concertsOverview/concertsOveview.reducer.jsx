@@ -1,3 +1,4 @@
+import ConcertsOverviewTypes from './concertsOverview.types';
 const INITIAL_STATE = {
     collection: [
         {
@@ -20,6 +21,11 @@ const INITIAL_STATE = {
 
 const ConcertsOverview = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case ConcertsOverviewTypes.ADD_NEW_CONCERT: 
+            return {
+                ...state,
+                collections: state.collection.push(action.payload)
+            }
         default:
             return state;
     }
