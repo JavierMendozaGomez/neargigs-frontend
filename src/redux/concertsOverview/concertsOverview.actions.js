@@ -1,9 +1,11 @@
 import ConcertsOverviewTypes from './concertsOverview.types';
 
-const createConcert = concert => ({
+const createConcert = concert => {
+    return ({
     type: ConcertsOverviewTypes.ADD_NEW_CONCERT,
     payload: concert
-});
+    });
+};
 
 export {
     createConcert
