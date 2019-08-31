@@ -29,6 +29,7 @@ module.exports = {
     'import/order': 'off',
 	'indent': [2,'tab'],
 	'no-tabs': 'off',
-	'react/jsx-indent': 'off'
+	'react/jsx-indent': 'off',
+	'react/jsx-indent-props': 'off',
   },
 };
