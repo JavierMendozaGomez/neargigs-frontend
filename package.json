@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
+    "husky": "^3.0.4",
     "node-sass": "^4.12.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -21,7 +22,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+	"eject": "react-scripts eject",
+	"lint": "yarn eslint src/components/**/**.jsx src/pages/**/**.jsx",
+	"autolint": "yarn eslint src/components/**/**.jsx src/pages/**/**.jsx --fix"
+  },
+  "husky": {
+	  "hooks": {
+		  "pre-commit": "yarn autolint"
+	  }
   },
   "eslintConfig": {
     "extends": "react-app"
