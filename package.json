@@ -12,6 +12,7 @@
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
+    "react-spotify-player": "^1.0.4",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
@@ -22,9 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-	"eject": "react-scripts eject",
-	"lint": "yarn eslint src/components/**/**.jsx src/pages/**/**.jsx",
-	"autolint": "yarn eslint src/components/**/**.jsx src/pages/**/**.jsx --fix"
+    "eject": "react-scripts eject",
+    "lint": "yarn eslint src/components/**/**.jsx src/pages/**/**.jsx",
+    "autolint": "yarn eslint src/components/**/**.jsx src/pages/**/**.jsx --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
