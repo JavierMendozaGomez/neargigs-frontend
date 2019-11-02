@@ -3,14 +3,14 @@ import axios from 'axios';
 
 const createConcert = concert => async (dispatch)  => {
     try {
-        const response = axios.post('localhost:4000/concerts', {
+        const response = axios.post('http://localhost:4000/concerts', {
             ...concert
         }, {
             headers : {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': true,
+                'Content-Type': 'application/json'
           },
-          'Content-Type': 'application/json'
         });
         console.log('Response');
         console.log(response);
