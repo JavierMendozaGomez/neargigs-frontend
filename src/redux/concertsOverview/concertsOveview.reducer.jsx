@@ -21,7 +21,7 @@ const INITIAL_STATE = {
 
 const ConcertsOverview = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case ConcertsOverviewTypes.ADD_NEW_CONCERT: 
+        case ConcertsOverviewTypes.ADD_NEW_CONCERT_SUCCESS: 
             return {
                 ...state,
                 collections: state.collection.push(action.payload)
