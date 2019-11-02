@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const createConcert = concert => async (dispatch)  => {
     try {
-        const response = axios.post('http://localhost:4000/concerts', {
+        axios.post('http://localhost:4000/concerts', {
             ...concert
         }, {
             headers : {
@@ -12,15 +12,11 @@ const createConcert = concert => async (dispatch)  => {
                 'Content-Type': 'application/json'
           },
         });
-        console.log('Response');
-        console.log(response);
         return dispatch({
             type: ConcertsOverviewTypes.CREATE_CONCERT_SUCCESS,
             payload: concert
         });
     } catch (error) {
-        console.log('ERROR');
-        console.log(error);
         return dispatch({
             type: ConcertsOverviewTypes.CREATE_CONCERT_FAILED
         });
