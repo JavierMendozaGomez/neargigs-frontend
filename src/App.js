@@ -17,7 +17,8 @@ function App() {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route exact path='/newConcert' component={NewConcertPage} />
-          <Route exact path='/concert' component={Concert} />
+          <Route exact path='/concert/:id' component={Concert} />
+          
         </Switch>
       </MuiPickersUtilsProvider>
     </div>

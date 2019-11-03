@@ -6,3 +6,8 @@ export const selectCollection = createSelector(
     [selectConcertsOverview],
     concertsOverview => concertsOverview.collection
 );
+
+export const selectConcert = createSelector(
+    [selectConcertsOverview],
+    concertsOverview => concertsOverview.concert
+);

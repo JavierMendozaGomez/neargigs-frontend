@@ -16,7 +16,14 @@ const INITIAL_STATE = {
             title: 'The strokes',
             image: 'https://www.dw.com/image/46699690_304.jpg'
         }
-    ]
+    ],
+    concert: {
+        id: '2',
+        title: 'System of a down',
+        image: 'https://townsquare.media/site/366/files/2019/02/System-of-a-Down-New1.jpg?w=980&q=75',
+        description :'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+        spotifyURI :'spotify:album:6jWde94ln40epKIQCd8XUh',
+    }
 };
 
 const ConcertsOverview = (state = INITIAL_STATE, action) => {
