@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createStructuredSelector} from 'reselect';
 import {selectConcert} from '../../redux/concertsOverview/concertsOverview.selectors';
+import {getConcert} from '../../redux/concertsOverview/concertsOverview.actions';
 import {connect} from 'react-redux';
 
 import SpotifyPlayer from 'react-spotify-player';
 
-const ConcertInfo = ({concert}) => {
+const ConcertInfo = ({concert, getConcert}) => {
+
+    useEffect(() => {
+        getConcert(concert.id);
+    }, []);
+
     const {
         title,
-        image,
+        imageURL,
         dateOfEvent,
         description,
         spotifyURI,
@@ -19,7 +25,7 @@ const ConcertInfo = ({concert}) => {
     return(
         <div className='concert-info'>
             <h1>{title}</h1>
-            <img src={image} alt='PRoblem loading it' />
+            <img src={imageURL} alt='PRoblem loading it' />
             <div className='description'>{description}</div>
             <SpotifyPlayer
                 uri={spotifyURI}
@@ -33,7 +39,7 @@ const ConcertInfo = ({concert}) => {
 
 
 const mapStateToProps = createStructuredSelector({
-	concert: selectConcert,
+    concert: selectConcert,
 });
 
-export default connect(mapStateToProps)(ConcertInfo);
+export default connect(mapStateToProps, {getConcert})(ConcertInfo);

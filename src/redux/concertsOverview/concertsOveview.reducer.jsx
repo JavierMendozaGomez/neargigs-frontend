@@ -33,6 +33,11 @@ const ConcertsOverview = (state = INITIAL_STATE, action) => {
                 ...state,
                 collections: state.collection.push(action.payload)
             }
+        case ConcertsOverviewTypes.GET_CONCERT_SUCCESS:
+            return {
+                ...state,
+                concert: action.payload
+            }
         default:
             return state;
     }

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const createConcert = concert => async (dispatch)  => {
     try {
-        axios.post('http://localhost:4000/concerts', {
+        await axios.post('http://localhost:4000/concerts', {
             ...concert
         }, {
             headers : {
@@ -23,6 +23,27 @@ const createConcert = concert => async (dispatch)  => {
     }
 };
 
+const getConcert = (id) => async (dispatch) => {
+    try {
+        const response = await axios.get(`http://localhost:4000/concerts/${id}`, {
+            headers : {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+                'Content-Type': 'application/json'
+          },
+        });
+        return dispatch({
+            type: ConcertsOverviewTypes.GET_CONCERT_SUCCESS,
+            payload: response
+        });
+    } catch (error) {
+        return dispatch({
+            type: ConcertsOverviewTypes.GET_CONCERT_SUCCESS
+        });
+    }
+};
+
 export {
-    createConcert
+    createConcert,
+    getConcert,
 };
