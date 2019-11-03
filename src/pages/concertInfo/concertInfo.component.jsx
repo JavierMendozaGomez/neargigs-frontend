@@ -5,11 +5,11 @@ import {getConcert} from '../../redux/concertsOverview/concertsOverview.actions'
 import {connect} from 'react-redux';
 
 import SpotifyPlayer from 'react-spotify-player';
+import {withRouter} from 'react-router-dom';
 
-const ConcertInfo = ({concert, getConcert}) => {
-
+const ConcertInfo = ({concert, getConcert, match}) => {
     useEffect(() => {
-        getConcert(concert.id);
+        getConcert(match.params.id);
     }, []);
 
     const {
@@ -42,4 +42,4 @@ const mapStateToProps = createStructuredSelector({
     concert: selectConcert,
 });
 
-export default connect(mapStateToProps, {getConcert})(ConcertInfo);
+export default withRouter(connect(mapStateToProps, {getConcert})(ConcertInfo));

@@ -32,9 +32,10 @@ const getConcert = (id) => async (dispatch) => {
                 'Content-Type': 'application/json'
           },
         });
+        const {data: {concert}} = response.data;
         return dispatch({
             type: ConcertsOverviewTypes.GET_CONCERT_SUCCESS,
-            payload: response
+            payload: concert
         });
     } catch (error) {
         return dispatch({
