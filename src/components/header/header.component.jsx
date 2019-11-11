@@ -10,7 +10,7 @@ const Header = ({history}) => (
 		<AppBar position='relative'>
 			<Toolbar>
 				<Button onClick={() => { history.push('/'); }}>Home</Button>
-				<Button onClick={() => { history.push('./newConcert'); }}>Add concert</Button>
+				<Button onClick={() => { history.push('/newConcert'); }}>Add concert</Button>
 			</Toolbar>
 		</AppBar>
 	</div>
