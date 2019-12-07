@@ -23,9 +23,9 @@ const createConcert = concert => async (dispatch)  => {
     }
 };
 
-const getConcert = (id) => async (dispatch) => {
+const getConcert = () => async (dispatch) => {
     try {
-        const response = await axios.get(`http://localhost:4000/concerts/${id}`, {
+        const response = await axios.get('http://localhost:4000/concerts/', {
             headers : {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': true,
@@ -43,6 +43,7 @@ const getConcert = (id) => async (dispatch) => {
         });
     }
 };
+
 
 export {
     createConcert,
