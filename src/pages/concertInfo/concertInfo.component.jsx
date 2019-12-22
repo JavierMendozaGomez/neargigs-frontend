@@ -1,15 +1,22 @@
-import React, {useEffect} from 'react';
-import {createStructuredSelector} from 'reselect';
-import {selectConcert} from '../../redux/concertsOverview/concertsOverview.selectors';
+import React, {useEffect, useReducer} from 'react';
 import {getConcert} from '../../redux/concertsOverview/concertsOverview.actions';
-import {connect} from 'react-redux';
-
 import SpotifyPlayer from 'react-spotify-player';
 import {withRouter} from 'react-router-dom';
+import ConcertsOverviewReducer from '../../redux/concertsOverview/concertsOveview.reducer';
 
-const ConcertInfo = ({concert, getConcert, match}) => {
+const ConcertInfo = ({match}) => {
+    const [{concert}, dispatch] = useReducer(ConcertsOverviewReducer, {
+        concert: {
+            id: '',
+            title: '',
+            image: '',
+            description : '',
+            spotifyURI : '',
+        }
+    });
+
     useEffect(() => {
-        getConcert(match.params.id);
+        getConcert(match.params.id)(dispatch);
     }, []);
 
     const {
@@ -37,9 +44,4 @@ const ConcertInfo = ({concert, getConcert, match}) => {
     )
 };
 
-
-const mapStateToProps = createStructuredSelector({
-    concert: selectConcert,
-});
-
-export default withRouter(connect(mapStateToProps, {getConcert})(ConcertInfo));
+export default withRouter(ConcertInfo);

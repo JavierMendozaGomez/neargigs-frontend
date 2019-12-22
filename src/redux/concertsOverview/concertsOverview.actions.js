@@ -23,9 +23,9 @@ const createConcert = concert => async (dispatch)  => {
     }
 };
 
-const getConcert = () => async (dispatch) => {
+const getConcert = (id) => async (dispatch) => {
     try {
-        const response = await axios.get('http://localhost:4000/concerts/', {
+        const response = await axios.get(`http://localhost:4000/concerts/${id}`, {
             headers : {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': true,
@@ -44,8 +44,30 @@ const getConcert = () => async (dispatch) => {
     }
 };
 
+const getAllConcerts = () => async (dispatch) => {
+    try {
+        const response = await axios.get('http://localhost:4000/concerts/', {
+            headers : {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+                'Content-Type': 'application/json'
+          },
+        });
+        const {data: {res: concerts}} = response.data;
+        return dispatch({
+            type: ConcertsOverviewTypes.GET_ALL_CONCERTS_SUCCESS,
+            payload: concerts
+        });
+    } catch (error) {
+        return dispatch({
+            type: ConcertsOverviewTypes.GET_ALL_CONCERTS_FAILED
+        });
+    }
+};
+
 
 export {
     createConcert,
+    getAllConcerts,
     getConcert,
 };
