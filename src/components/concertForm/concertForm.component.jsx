@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useReducer} from 'react';
 import './concertForm.styles.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {DateTimePicker} from '@material-ui/pickers/';
 import {createConcert} from '../../redux/concertsOverview/concertsOverview.actions';
-import {connect} from 'react-redux';
+import ConcertsOverviewReducer from '../../redux/concertsOverview/concertsOveview.reducer';
 
-const ConcertForm = ({createConcert}) =>  {
+const ConcertForm = () =>  {
+	const [dummy, dispatch] = useReducer(ConcertsOverviewReducer, {});
 	const [dateOfEvent, handleDateChange] = useState(null);
-
 	const [concert, setConcert] = useState({
 		title: '',
 		description: '',
@@ -28,7 +28,7 @@ const ConcertForm = ({createConcert}) =>  {
 		className='container'
 		onSubmit={(e) => {
 			e.preventDefault();
-			createConcert({...concert, dateOfEvent});
+			createConcert({...concert, dateOfEvent})(dispatch);
 		}}
 	>
 		<TextField label='Title' value={concert.title} name='title' onChange={handleChange}/>
@@ -52,4 +52,5 @@ const ConcertForm = ({createConcert}) =>  {
 	)
 };
 
-export default connect(null, {createConcert})(ConcertForm);
+//export default connect(null, {createConcert})(ConcertForm);
+export default ConcertForm;
