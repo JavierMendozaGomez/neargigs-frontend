@@ -52,5 +52,4 @@ const ConcertForm = () =>  {
 	)
 };
 
-//export default connect(null, {createConcert})(ConcertForm);
 export default ConcertForm;

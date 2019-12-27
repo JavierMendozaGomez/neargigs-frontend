@@ -4,6 +4,7 @@ import SpotifyPlayer from 'react-spotify-player';
 import {withRouter} from 'react-router-dom';
 import ConcertsOverviewReducer from '../../redux/concertsOverview/concertsOveview.reducer';
 
+
 const ConcertInfo = ({match}) => {
     const [{concert}, dispatch] = useReducer(ConcertsOverviewReducer, {
         concert: {
@@ -32,6 +33,7 @@ const ConcertInfo = ({match}) => {
     return(
         <div className='concert-info'>
             <h1>{title}</h1>
+            <div id="map"></div>
             <img src={imageURL} alt='PRoblem loading it' />
             <div className='description'>{description}</div>
             <SpotifyPlayer
@@ -41,6 +43,7 @@ const ConcertInfo = ({match}) => {
                 theme='black'
             />
         </div>
+        
     )
 };
 
