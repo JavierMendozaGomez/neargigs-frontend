@@ -1,34 +1,39 @@
-import React, {useState, useReducer} from 'react';
+import React, {useEffect, useState, useReducer} from 'react';
 import './concertForm.styles.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {DateTimePicker} from '@material-ui/pickers/';
-import {createConcert} from '../../redux/concertsOverview/concertsOverview.actions';
-import ConcertsOverviewReducer from '../../redux/concertsOverview/concertsOveview.reducer';
+import {createConcert, getConcert, updateFieldsForm} from '../../redux/concertsOverview/concertsOverview.actions';
+import ConcertsOverviewReducer, {INITIAL_STATE} from '../../redux/concertsOverview/concertsOveview.reducer';
+import {withRouter} from 'react-router-dom';
 
-const ConcertForm = () =>  {
-	const [dummy, dispatch] = useReducer(ConcertsOverviewReducer, {});
-	const [dateOfEvent, handleDateChange] = useState(null);
-	const [concert, setConcert] = useState({
-		title: '',
-		description: '',
-		imageURL: '',
-	});
+const ConcertForm = ({match}) =>  {
+	let [{concert}, dispatch] = useReducer(ConcertsOverviewReducer, INITIAL_STATE);
+
+	useEffect(() => {
+		if(match.params.id) {
+        	getConcert(match.params.id)(dispatch);
+		}
+	}, []);
 
 	const handleChange = (evt) => {
-		const value = evt.target.value;
-		setConcert({
-			...concert,
-			[evt.target.name]: value
-		})
+		concert[evt.target.name] = evt.target.value;
+		updateFieldsForm(concert)(dispatch);
 	};
+	
+	const handleDateChange = (date) => {
+		updateFieldsForm({
+			...concert,
+			dateOfEvent: date
+		})(dispatch)
+	}
 
 	return (
 	<form
 		className='container'
 		onSubmit={(e) => {
 			e.preventDefault();
-			createConcert({...concert, dateOfEvent})(dispatch);
+			createConcert({...concert})(dispatch);
 		}}
 	>
 		<TextField label='Title' value={concert.title} name='title' onChange={handleChange}/>
@@ -39,7 +44,7 @@ const ConcertForm = () =>  {
 			label="When it's going to happen?"
 			inputVariant="outlined"
 			autoOk
-			value={dateOfEvent}
+			value={concert.dateOfEvent}
 			ampm={false}
 			onChange={handleDateChange}
 			disablePast
@@ -52,4 +57,4 @@ const ConcertForm = () =>  {
 	)
 };
 
-export default ConcertForm;
+export default withRouter(ConcertForm);

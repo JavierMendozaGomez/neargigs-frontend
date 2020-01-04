@@ -65,9 +65,16 @@ const getAllConcerts = () => async (dispatch) => {
     }
 };
 
+const updateFieldsForm = (concert) => (dispatch) => {
+    return dispatch({
+        type: ConcertsOverviewTypes.UPDATE_FIELDS_FORM,
+        payload: concert
+    });
+}
 
 export {
     createConcert,
     getAllConcerts,
     getConcert,
+    updateFieldsForm,
 };
