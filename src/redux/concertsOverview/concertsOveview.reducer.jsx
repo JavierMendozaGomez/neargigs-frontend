@@ -44,6 +44,11 @@ const ConcertsOverview = (state = INITIAL_STATE, action) => {
                 ...state,
                 collection: action.payload
             }
+        case ConcertsOverviewTypes.UPDATE_CONCERT_SUCCESS: 
+            return {
+                ...state,
+                concert: action.payload
+            }
         case ConcertsOverviewTypes.UPDATE_FIELDS_FORM:
             return {
                 ...state,

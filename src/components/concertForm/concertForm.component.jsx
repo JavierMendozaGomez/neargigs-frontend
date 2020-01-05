@@ -3,7 +3,7 @@ import './concertForm.styles.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {DateTimePicker} from '@material-ui/pickers/';
-import {createConcert, getConcert, updateFieldsForm} from '../../redux/concertsOverview/concertsOverview.actions';
+import {createConcert, getConcert, updateConcert, updateFieldsForm} from '../../redux/concertsOverview/concertsOverview.actions';
 import ConcertsOverviewReducer, {INITIAL_STATE} from '../../redux/concertsOverview/concertsOveview.reducer';
 import {withRouter} from 'react-router-dom';
 
@@ -33,7 +33,10 @@ const ConcertForm = ({match}) =>  {
 		className='container'
 		onSubmit={(e) => {
 			e.preventDefault();
-			createConcert({...concert})(dispatch);
+			if(match.params.id) {
+				 return updateConcert(concert)(dispatch)
+			}
+			return createConcert(concert)(dispatch);
 		}}
 	>
 		<TextField label='Title' value={concert.title} name='title' onChange={handleChange}/>
@@ -51,7 +54,7 @@ const ConcertForm = ({match}) =>  {
       	/>
 
 	  <Button type='submit' variant="contained" color="primary">
-                Create Concert
+                {(match.params.id) ? 'update concert': 'create concert'}
 		</Button>
 	</form>
 	)

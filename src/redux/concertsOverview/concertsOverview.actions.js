@@ -65,6 +65,28 @@ const getAllConcerts = () => async (dispatch) => {
     }
 };
 
+const updateConcert = concert => async (dispatch)  => {
+    try {
+        await axios.patch(`http://localhost:4000/concerts/${concert.id}`, {
+            ...concert
+        }, {
+            headers : {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+                'Content-Type': 'application/json'
+          },
+        });
+        return dispatch({
+            type: ConcertsOverviewTypes.CREATE_CONCERT_SUCCESS,
+            payload: concert
+        });
+    } catch (error) {
+        return dispatch({
+            type: ConcertsOverviewTypes.CREATE_CONCERT_FAILED
+        });
+    }
+};
+
 const updateFieldsForm = (concert) => (dispatch) => {
     return dispatch({
         type: ConcertsOverviewTypes.UPDATE_FIELDS_FORM,
@@ -76,5 +98,6 @@ export {
     createConcert,
     getAllConcerts,
     getConcert,
+    updateConcert,
     updateFieldsForm,
 };
