@@ -1,5 +1,6 @@
 import React, {useEffect, useReducer} from 'react';
 import ConcertPreview from '../concertPreview/concertPreview.component';
+import SignIn from '../auth/signIn.component';
 import './concertsOverview.styles.scss';
 import {getAllConcerts} from  '../../redux/concertsOverview/concertsOverview.actions';
 import ConcertsOverviewReducer from '../../redux/concertsOverview/concertsOveview.reducer';
@@ -17,6 +18,7 @@ const ConcertsOverview = () => {
 	return (
 		<div className='concerts-overview'>
 			<h1>Collection of concerts</h1>
+			<SignIn />
 			<div className='concerts'>
 				{
 					collection.map(({ id, ...otherConcertProps }) => (
