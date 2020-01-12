@@ -1,25 +1,30 @@
-import React from 'react';
-import {createStructuredSelector} from 'reselect';
-import {selectCollection} from '../../redux/concertsOverview/concertsOverview.selectors';
-import {connect} from 'react-redux';
+import React, {useEffect, useReducer} from 'react';
 import ConcertPreview from '../concertPreview/concertPreview.component';
 import './concertsOverview.styles.scss';
+import {getAllConcerts} from  '../../redux/concertsOverview/concertsOverview.actions';
+import ConcertsOverviewReducer from '../../redux/concertsOverview/concertsOveview.reducer';
 
-const ConcertsOverview = ({collections}) => (
-	<div className='concerts-overview'>
-		<h1>Collection of concerts</h1>
-		<div className='concerts'>
-			{
-				collections.map(({id, ...otherConcertProps}) => (
-					<ConcertPreview key={id} {...otherConcertProps} id={id} />
-				))
-			}
-		</div>
-	</div>
-);
 
-const mapStateToProps = createStructuredSelector({
-	collections: selectCollection,
-});
+const ConcertsOverview = () => {
+	const [{collection}, dispatch] = useReducer(ConcertsOverviewReducer, {
+		collection: []
+	});
 
-export default connect(mapStateToProps)(ConcertsOverview);
+	useEffect(() => {
+		getAllConcerts()(dispatch);
+	}, []);
+
+	return (
+		<div className='concerts-overview'>
+			<h1>Collection of concerts</h1>
+			<div className='concerts'>
+				{
+					collection.map(({ id, ...otherConcertProps }) => (
+						<ConcertPreview key={id} {...otherConcertProps} id={id} />
+					))
+				}
+			</div>
+		</div>)
+};
+
+export default ConcertsOverview;

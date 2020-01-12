@@ -1,34 +1,42 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useReducer} from 'react';
 import './concertForm.styles.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {DateTimePicker} from '@material-ui/pickers/';
-import {createConcert} from '../../redux/concertsOverview/concertsOverview.actions';
-import {connect} from 'react-redux';
+import {createConcert, getConcert, updateConcert, updateFieldsForm} from '../../redux/concertsOverview/concertsOverview.actions';
+import ConcertsOverviewReducer, {INITIAL_STATE} from '../../redux/concertsOverview/concertsOveview.reducer';
+import {withRouter} from 'react-router-dom';
 
-const ConcertForm = ({createConcert}) =>  {
-	const [dateOfEvent, handleDateChange] = useState(null);
+const ConcertForm = ({match}) =>  {
+	let [{concert}, dispatch] = useReducer(ConcertsOverviewReducer, INITIAL_STATE);
 
-	const [concert, setConcert] = useState({
-		title: '',
-		description: '',
-		imageURL: '',
-	});
+	useEffect(() => {
+		if(match.params.id) {
+        	getConcert(match.params.id)(dispatch);
+		}
+	}, []);
 
 	const handleChange = (evt) => {
-		const value = evt.target.value;
-		setConcert({
-			...concert,
-			[evt.target.name]: value
-		})
+		concert[evt.target.name] = evt.target.value;
+		updateFieldsForm(concert)(dispatch);
 	};
+	
+	const handleDateChange = (date) => {
+		updateFieldsForm({
+			...concert,
+			dateOfEvent: date
+		})(dispatch)
+	}
 
 	return (
 	<form
 		className='container'
 		onSubmit={(e) => {
 			e.preventDefault();
-			createConcert({...concert, dateOfEvent});
+			if(match.params.id) {
+				 return updateConcert(concert)(dispatch)
+			}
+			return createConcert(concert)(dispatch);
 		}}
 	>
 		<TextField label='Title' value={concert.title} name='title' onChange={handleChange}/>
@@ -39,17 +47,17 @@ const ConcertForm = ({createConcert}) =>  {
 			label="When it's going to happen?"
 			inputVariant="outlined"
 			autoOk
-			value={dateOfEvent}
+			value={concert.dateOfEvent}
 			ampm={false}
 			onChange={handleDateChange}
 			disablePast
       	/>
 
 	  <Button type='submit' variant="contained" color="primary">
-                Create Concert
+                {(match.params.id) ? 'update concert': 'create concert'}
 		</Button>
 	</form>
 	)
 };
 
-export default connect(null, {createConcert})(ConcertForm);
+export default withRouter(ConcertForm);
